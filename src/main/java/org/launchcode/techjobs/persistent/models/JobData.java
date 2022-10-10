@@ -2,30 +2,13 @@ package org.launchcode.techjobs.persistent.models;
 
 import java.util.ArrayList;
 
-// This is a change made in sandbox.
-
-/**
- * Created by LaunchCode
- */
 public class JobData {
 
-
-    /**
-     * Returns the results of searching the Jobs data by field and search term.
-     *
-     * For example, searching for employer "Enterprise" will include results
-     * with "Enterprise Holdings, Inc".
-     *
-     * @param column Job field that should be searched.
-     * @param value Value of the field to search for.
-     * @param allJobs The list of jobs to search.
-     * @return List of all jobs matching the criteria.
-     */
     public static ArrayList<Job> findByColumnAndValue(String column, String value, Iterable<Job> allJobs) {
 
         ArrayList<Job> results = new ArrayList<>();
 
-        if (value.toLowerCase().equals("all")){
+        if (value.equalsIgnoreCase("all")){
             return (ArrayList<Job>) allJobs;
         }
 
@@ -58,13 +41,6 @@ public class JobData {
         return theValue;
     }
 
-    /**
-     * Search all Job fields for the given term.
-     *
-     * @param value The search term to look for.
-     * @param allJobs The list of jobs to search.
-     * @return      List of all jobs with at least one field containing the value.
-     */
     public static ArrayList<Job> findByValue(String value, Iterable<Job> allJobs) {
         String lower_val = value.toLowerCase();
 
@@ -89,4 +65,3 @@ public class JobData {
 
 
 }
-

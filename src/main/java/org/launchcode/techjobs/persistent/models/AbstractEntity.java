@@ -1,12 +1,22 @@
 package org.launchcode.techjobs.persistent.models;
 
+import javax.annotation.processing.Generated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.*;
 import java.util.Objects;
 
+@MappedSuperclass
 
 public abstract class AbstractEntity {
-
+    @Id
+    @GeneratedValue
     private int id;
 
+    @NotNull
+    @NotBlank
+    @Size(min=3, max = 60)
     private String name;
 
     public int getId() {
@@ -16,6 +26,7 @@ public abstract class AbstractEntity {
     public String getName() {
         return name;
     }
+
 
     public void setName(String name) {
         this.name = name;

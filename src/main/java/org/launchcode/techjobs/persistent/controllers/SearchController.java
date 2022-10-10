@@ -11,9 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import static org.launchcode.techjobs.persistent.controllers.ListController.columnChoices;
 
-/**
- * Created by LaunchCode
- */
 @Controller
 @RequestMapping("search")
 public class SearchController {
@@ -30,7 +27,7 @@ public class SearchController {
     @PostMapping("results")
     public String displaySearchResults(Model model, @RequestParam String searchType, @RequestParam String searchTerm){
         Iterable<Job> jobs;
-        if (searchTerm.toLowerCase().equals("all") || searchTerm.equals("")){
+        if (searchTerm.equalsIgnoreCase("all") || searchTerm.equals("")){
             jobs = jobRepository.findAll();
         } else {
             jobs = JobData.findByColumnAndValue(searchType, searchTerm, jobRepository.findAll());
