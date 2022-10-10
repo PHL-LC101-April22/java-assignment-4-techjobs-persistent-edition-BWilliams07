@@ -8,14 +8,8 @@ import java.util.regex.Pattern;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-/**
- * Created by LaunchCode
- */
 public class TestTaskOne extends AbstractTest{
 
-    /*
-    * Check application.properties for the correct db connection data
-    * */
     @Test
     public void testDbConnectionProperties () throws IOException {
         String propsFileContents = getFileContents("src/main/resources/application.properties");
@@ -36,9 +30,6 @@ public class TestTaskOne extends AbstractTest{
         assertTrue(passwordFound, "Database password not found or is incorrect");
     }
 
-    /*
-    * Check build.gradle for the required database dependencies
-    * */
     @Test
     public void testDbGradleDependencies () throws IOException {
         String gradleFileContents = getFileContents("build.gradle");
