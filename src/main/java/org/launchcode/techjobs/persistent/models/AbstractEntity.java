@@ -1,21 +1,22 @@
 package org.launchcode.techjobs.persistent.models;
 
+import javax.annotation.processing.Generated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.Objects;
 
 @MappedSuperclass
-public abstract class AbstractEntity {
 
+public abstract class AbstractEntity {
     @Id
     @GeneratedValue
     private int id;
 
-    @NotBlank(message = "name can not be blank")
-    @Size(max=80)
+    @NotNull
+    @NotBlank
+    @Size(min=3, max = 60)
     private String name;
 
     public int getId() {
@@ -25,6 +26,7 @@ public abstract class AbstractEntity {
     public String getName() {
         return name;
     }
+
 
     public void setName(String name) {
         this.name = name;
