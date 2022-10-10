@@ -61,9 +61,6 @@ public class TestTaskFour extends AbstractTest {
         assertEquals("skills", mappedByMethod.invoke(annotation));
     }
 
-    /*
-     * Verifies that Job.skills has been refactored to be of the correct type, with mapping annotation
-     * */
     @Test
     public void testJobSkillsHasCorrectTypeAndAnnotation () throws ClassNotFoundException, NoSuchFieldException {
         Class jobClass = getClassByName("models.Job");
