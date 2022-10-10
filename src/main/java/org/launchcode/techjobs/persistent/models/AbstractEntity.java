@@ -1,13 +1,30 @@
 package org.launchcode.techjobs.persistent.models;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
-
+@SuppressWarnings("unused")
+@MappedSuperclass
 public abstract class AbstractEntity {
 
-    private int id;
+    @Id
+    @GeneratedValue
+    private int id = 0;
 
+    @NotBlank(message = "name can not be blank")
+    @Size(max=80)
     private String name;
+
+    protected AbstractEntity(int id) {
+        this.id = id;
+    }
+
+    protected AbstractEntity() {
+    }
 
     public int getId() {
         return id;
