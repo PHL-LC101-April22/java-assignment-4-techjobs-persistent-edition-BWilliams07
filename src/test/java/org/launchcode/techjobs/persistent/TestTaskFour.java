@@ -23,7 +23,6 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -141,7 +140,7 @@ public class TestTaskFour extends AbstractTest {
         Method processAddJobFormMethod = homeControllerClass.getMethod("processAddJobForm", Job.class, Errors.class, Model.class, int.class, List.class);
 
         new Expectations() {{
-            skillRepository.findAllById((Iterable<Integer>) Objects.requireNonNull(any));
+            skillRepository.findAllById((Iterable<Integer>) any);
             job.setSkills((List<Skill>) any);
         }};
 
