@@ -1,6 +1,7 @@
 package org.launchcode.techjobs.persistent.controllers;
 
 import org.launchcode.techjobs.persistent.models.Employer;
+import org.launchcode.techjobs.persistent.models.Job;
 import org.launchcode.techjobs.persistent.models.data.EmployerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,27 +17,32 @@ import java.util.Optional;
 public class EmployerController {
 
     @Autowired
-    private final EmployerRepository employerRepository;
+    private EmployerRepository employerRepository;
 
     public EmployerController(EmployerRepository employerRepository) {
-        this.employerRepository = employerRepository;
+    }
+
+    // ask if proper index method?//
+    @RequestMapping("")
+    public String index(Model model){
+        model.addAttribute("employers", employerRepository.findAll());
+        return "employers/index";
     }
 
     @GetMapping("add")
     public String displayAddEmployerForm(Model model) {
-        model.addAttribute(new Employer());
+        model.addAttribute("employer",new Employer());
         return "employers/add";
     }
-
+    //check else statement//
     @PostMapping("add")
-    public String processAddEmployerForm(@ModelAttribute @Valid Employer newEmployer, Errors errors, Model model) {
+    public String processAddEmployerForm(@ModelAttribute @Valid Employer newEmployer,
+                                         Errors errors, Model model) {
 
         if (errors.hasErrors()) {
             return "employers/add";
         }
-
         employerRepository.save(newEmployer);
-        //model.addAttribute("title", "Employers");
         return "redirect:";
     }
 
@@ -52,11 +58,4 @@ public class EmployerController {
             return "redirect:../";
         }
     }
-
-    @GetMapping("")
-    public String index(Model model){
-        model.addAttribute("employers ", employerRepository.findAll());
-        return "employers/index";
-    }
-
 }
