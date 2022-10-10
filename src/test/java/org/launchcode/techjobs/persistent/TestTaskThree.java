@@ -29,7 +29,6 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Created by LaunchCode
  */
-@SuppressWarnings({"rawtypes", "unused"})
 public class TestTaskThree extends AbstractTest {
 
     /*
@@ -56,7 +55,7 @@ public class TestTaskThree extends AbstractTest {
         jobsField.setAccessible(true);
         ArrayList<Job> initializedList = (ArrayList<Job>) jobsField.get(employer);
 
-        for (Job ignored : initializedList) {
+        for (Job item : initializedList) {
             fail("jobs should be initialized to an empty ArrayList");
         }
     }
@@ -163,7 +162,7 @@ public class TestTaskThree extends AbstractTest {
 
         // not needed for verification, but necessary to make sure calling the controller
         // method doesn't throw a NullPointerException
-        Field skillRepositoryField;
+        Field skillRepositoryField = null;
         try {
             skillRepositoryField = homeControllerClass.getDeclaredField("skillRepository");
             skillRepositoryField.setAccessible(true);
