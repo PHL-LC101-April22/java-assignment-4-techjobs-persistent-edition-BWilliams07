@@ -378,13 +378,13 @@ public class TestTaskTwo extends AbstractTest {
         assertEquals(1, values.length, "The routing annotation for index must have a value");
         assertEquals("", values[0], "The value parameter for the routing annotation must be the empty string");
 
-//        // Verify that index calls employerRepository.findAll()
+        // Verify that index calls employerRepository.findAll()
         new Expectations() {{
             employerRepository.findAll();
         }};
 
         Model model = new ExtendedModelMap();
-        EmployerController employerController = new EmployerController(employerRepository);
+        EmployerController employerController = new EmployerController();
         Field employerRepositoryField = employerControllerClass.getDeclaredField("employerRepository");
         employerRepositoryField.setAccessible(true);
         employerRepositoryField.set(employerController, employerRepository);
@@ -409,7 +409,7 @@ public class TestTaskTwo extends AbstractTest {
         }};
 
         Model model = new ExtendedModelMap();
-        EmployerController employerController = new EmployerController(employerRepository);
+        EmployerController employerController = new EmployerController();
         Field employerRepositoryField = employerControllerClass.getDeclaredField("employerRepository");
         employerRepositoryField.setAccessible(true);
         employerRepositoryField.set(employerController, employerRepository);
@@ -429,7 +429,7 @@ public class TestTaskTwo extends AbstractTest {
         }};
 
         Model model = new ExtendedModelMap();
-        EmployerController employerController = new EmployerController(employerRepository);
+        EmployerController employerController = new EmployerController();
         Field employerRepositoryField = employerControllerClass.getDeclaredField("employerRepository");
         employerRepositoryField.setAccessible(true);
         employerRepositoryField.set(employerController, employerRepository);
@@ -490,7 +490,7 @@ public class TestTaskTwo extends AbstractTest {
         }};
 
         Model model = new ExtendedModelMap();
-        SkillController skillController = new SkillController(skillRepository);
+        SkillController skillController = new SkillController();
         Field skillRepositoryField = skillControllerClass.getDeclaredField("skillRepository");
         skillRepositoryField.setAccessible(true);
         skillRepositoryField.set(skillController, skillRepository);
@@ -514,13 +514,16 @@ public class TestTaskTwo extends AbstractTest {
         }};
 
         Model model = new ExtendedModelMap();
-        SkillController skillController = new SkillController(skillRepository);
+        SkillController skillController = new SkillController();
         Field skillRepositoryField = skillControllerClass.getDeclaredField("skillRepository");
         skillRepositoryField.setAccessible(true);
         skillRepositoryField.set(skillController, skillRepository);
         processAddSkillFormMethod.invoke(skillController, skill, errors, model);
     }
 
+    /*
+     * Verifies that displayViewSkill calls findById to retrieve an skill object
+     * */
     @Test
     public void testDisplayViewSkillCallsFindById (@Mocked SkillRepository skillRepository) throws ClassNotFoundException, NoSuchMethodException, NoSuchFieldException, IllegalAccessException, InvocationTargetException {
         Class skillControllerClass = getClassByName("controllers.SkillController");
@@ -531,7 +534,7 @@ public class TestTaskTwo extends AbstractTest {
         }};
 
         Model model = new ExtendedModelMap();
-        SkillController skillController = new SkillController(skillRepository);
+        SkillController skillController = new SkillController();
         Field skillRepositoryField = skillControllerClass.getDeclaredField("skillRepository");
         skillRepositoryField.setAccessible(true);
         skillRepositoryField.set(skillController, skillRepository);

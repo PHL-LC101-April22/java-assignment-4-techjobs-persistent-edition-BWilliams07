@@ -8,11 +8,11 @@ import org.launchcode.techjobs.persistent.models.data.SkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashMap;
-import java.util.Objects;
 
 /**
  * Created by LaunchCode
@@ -22,20 +22,17 @@ import java.util.Objects;
 public class ListController {
 
     @Autowired
-    private final JobRepository jobRepository;
+    private JobRepository jobRepository;
 
     @Autowired
-    private final EmployerRepository employerRepository;
+    private EmployerRepository employerRepository;
 
     @Autowired
-    private final SkillRepository skillRepository;
+    private SkillRepository skillRepository;
 
     static HashMap<String, String> columnChoices = new HashMap<>();
 
-    public ListController (JobRepository jobRepository, EmployerRepository employerRepository, SkillRepository skillRepository) {
-        this.jobRepository = jobRepository;
-        this.employerRepository = employerRepository;
-        this.skillRepository = skillRepository;
+    public ListController () {
 
         columnChoices.put("all", "All");
         columnChoices.put("employer", "Employer");
@@ -43,17 +40,11 @@ public class ListController {
 
     }
 
-    public ListController() {
-
-        jobRepository = null;
-        employerRepository = null;
-        skillRepository = null;
-    }
-
     @RequestMapping("")
     public String list(Model model) {
         model.addAttribute("employers", employerRepository.findAll());
         model.addAttribute("skills", skillRepository.findAll());
+
 
         return "list";
     }
@@ -61,7 +52,7 @@ public class ListController {
     @RequestMapping(value = "jobs")
     public String listJobsByColumnAndValue(Model model, @RequestParam String column, @RequestParam String value) {
         Iterable<Job> jobs;
-        if (Objects.equals(column.toLowerCase(), "all")){
+        if (column.toLowerCase().equals("all")){
             jobs = jobRepository.findAll();
             model.addAttribute("title", "All Jobs");
         } else {

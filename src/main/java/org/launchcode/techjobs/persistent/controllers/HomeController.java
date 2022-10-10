@@ -1,5 +1,6 @@
 package org.launchcode.techjobs.persistent.controllers;
 
+import org.launchcode.techjobs.persistent.models.Employer;
 import org.launchcode.techjobs.persistent.models.Job;
 import org.launchcode.techjobs.persistent.models.Skill;
 import org.launchcode.techjobs.persistent.models.data.EmployerRepository;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by LaunchCode
@@ -24,10 +26,10 @@ public class HomeController {
     EmployerRepository employerRepository;
 
     @Autowired
-    SkillRepository skillRepository;
+    JobRepository jobRepository;
 
     @Autowired
-    JobRepository jobRepository;
+    SkillRepository skillRepository;
 
     @RequestMapping("")
     public String index(Model model) {
@@ -46,18 +48,31 @@ public class HomeController {
         return "add";
     }
 
-    @PostMapping("add")
-    public String processAddJobForm(@ModelAttribute @Valid Job newJob, Errors errors, Model model, @RequestParam int employerId, @RequestParam List<Integer> skills) {
 
+    @PostMapping("add")
+    public String processAddJobForm(@ModelAttribute @Valid Job newJob,
+                                    Errors errors, Model model, @RequestParam int employerId, @RequestParam List<Integer> skills) {
+
+        //Optional<Employer> employerOptional=employerRepository.findById(employerId);
+        Employer employerOptional = employerRepository.findById(employerId).orElse(new Employer());
+       /* if(employerOptional.isEmpty()){
+            return"add";
+        }*/
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Job");
             return "add";
         }
-        newJob.setEmployer(employerRepository.findById(employerId));
+
+        newJob.setEmployer(employerOptional);
+        employerOptional.getJobs().add(newJob);
+
         List<Skill> skillObjs = (List<Skill>) skillRepository.findAllById(skills);
         newJob.setSkills(skillObjs);
+
         jobRepository.save(newJob);
         return "redirect:";
+
+
     }
 
     @GetMapping("view/{jobId}")
