@@ -43,6 +43,13 @@ public class ListController {
 
     }
 
+    public ListController() {
+
+        jobRepository = null;
+        employerRepository = null;
+        skillRepository = null;
+    }
+
     @RequestMapping("")
     public String list(Model model) {
         model.addAttribute("employers", employerRepository.findAll());
