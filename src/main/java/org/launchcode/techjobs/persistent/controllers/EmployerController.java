@@ -15,7 +15,6 @@ import java.util.Optional;
 @RequestMapping("employers")
 public class EmployerController {
 
-
     @Autowired
     EmployerRepository employerRepository;
 

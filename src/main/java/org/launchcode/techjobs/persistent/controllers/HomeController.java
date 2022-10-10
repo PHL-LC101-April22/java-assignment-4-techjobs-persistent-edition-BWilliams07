@@ -16,9 +16,6 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Created by LaunchCode
- */
 @Controller
 public class HomeController {
 
@@ -53,11 +50,7 @@ public class HomeController {
     public String processAddJobForm(@ModelAttribute @Valid Job newJob,
                                     Errors errors, Model model, @RequestParam int employerId, @RequestParam List<Integer> skills) {
 
-        //Optional<Employer> employerOptional=employerRepository.findById(employerId);
         Employer employerOptional = employerRepository.findById(employerId).orElse(new Employer());
-       /* if(employerOptional.isEmpty()){
-            return"add";
-        }*/
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Job");
             return "add";
@@ -71,7 +64,6 @@ public class HomeController {
 
         jobRepository.save(newJob);
         return "redirect:";
-
 
     }
 
