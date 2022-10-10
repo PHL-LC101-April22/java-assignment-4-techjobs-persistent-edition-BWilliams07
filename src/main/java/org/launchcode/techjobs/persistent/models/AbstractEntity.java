@@ -7,24 +7,16 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Objects;
 
-@SuppressWarnings("unused")
 @MappedSuperclass
 public abstract class AbstractEntity {
 
     @Id
     @GeneratedValue
-    private int id = 0;
+    private int id;
 
     @NotBlank(message = "name can not be blank")
     @Size(max=80)
     private String name;
-
-    protected AbstractEntity(int id) {
-        this.id = id;
-    }
-
-    protected AbstractEntity() {
-    }
 
     public int getId() {
         return id;
