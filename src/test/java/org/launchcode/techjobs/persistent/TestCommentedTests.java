@@ -4,9 +4,6 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-/**
- * Created by LaunchCode
- */
 public class TestCommentedTests extends AbstractTest {
 
     @Test
