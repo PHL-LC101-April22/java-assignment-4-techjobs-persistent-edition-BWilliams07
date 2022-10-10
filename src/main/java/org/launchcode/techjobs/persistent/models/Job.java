@@ -3,6 +3,7 @@ package org.launchcode.techjobs.persistent.models;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 public class Job extends AbstractEntity {
@@ -41,7 +42,7 @@ public class Job extends AbstractEntity {
         return employer;
     }
 
-    public void setEmployer(Employer employer) {
+    public void setEmployer(Optional<Employer> employer) {
         this.employer = employer;
     }
 
